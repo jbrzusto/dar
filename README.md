@@ -103,6 +103,6 @@ RP via ethernet, and send your web browser to
 reconfigured the RP's network)
 
 On that screen, choose the "Digdar Marine Radar Scope" application.
-You'll see this:
+You'll see this (except that the network address is different than what you'll use):
 
-![initial digdar screen](http://github.com/jbrzusto/dar/img/
+![initial digdar screen](https://github.com/jbrzusto/dar/blob/master/img/digdar_initial_screen.png)
