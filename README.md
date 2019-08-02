@@ -105,4 +105,45 @@ reconfigured the RP's network)
 On that screen, choose the "Digdar Marine Radar Scope" application.
 You'll see this (except that the network address is different than what you'll use):
 
-![initial digdar screen](https://github.com/jbrzusto/dar/blob/master/img/Screenshot_20190802_152409.png)
+![initial digdar screen](https://github.com/jbrzusto/dar/blob/master/img/initial_screen.png)
+
+To get rid of the noisy and unhelpful video signal, click on **Video** to deselect that signal,
+and then click on **Autoscale** to rescale.  You'll then see the trigger, ACP and ARP signals like this:
+
+![trig_acp_arp_no_video] (https://github.com/jbrzusto/dar/blob/master/img/trig_acp_arp_no_video.png)
+
+To focus on calibrating one signal, deselct ARP and Trigger to see only ACP, then click on the
+**Range** button to let you adjust the time and voltage ranges.  Increase the time to see
+ACP pulses clearly.
+
+![adjust_range] (https://github.com/jbrzusto/dar/blob/master/img/adjust_range.png)
+
+To see a summary of how ACP, ARP and trigger are being captured, click on the **Measure** button
+to see a window like this:
+
+![show_signal_measurements] (https://github.com/jbrzusto/dar/blob/master/img/show_signal_measurements.png)
+
+The measurement for **Video** is not usually helpful, but under **Trigger**, the *Rate* should be
+the radar's PRF.  Do not worry about *Capturing*; it is showing only the rate at which pulses are
+being captured by the web browser.
+
+Under **ACP / Azi**, you should see the appropriate number of ACP per sweep (4096 for Bridgemaster E,
+450 for Furuno radars).
+
+Under **ARP / Hdg**, the *Rate* should be the radar rotation rate, typically around 24-25 RPM.
+
+If these signals are not being captured correctly, you need to adjust the trigger thresholds
+for individual signals.  This is done one signal at a time, by selecting that signal:
+  - set Capturing and Plot **When** to **At every pulse**
+  - set **Pulses From** to Trigger, ACP, or ARP
+  - set the **Range** to a reasonable value
+  - adjust the **Detect Pulse At** (excitation level) and **Relax At** (relaxation level) up or down
+    until you see an appropriate rate in the **Measure** window
+
+To watch raw (untriggered) signal, you can choose *Continuously* in the **When** menu.
+Then hit **Autoscale** to make the scale usable.  You should probably increase the **Range**
+to be large as well.  It can go up to 5 seconds which is useful for checking the ARP pulse.
+
+Once you are confident in your capture of these signals, you can save parameters to
+on-board digitizer storage, or download to a local file, via **Load/Store Parameters**.
+The factory defaults might or might not be useful for your radar.
