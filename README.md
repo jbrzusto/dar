@@ -105,23 +105,23 @@ reconfigured the RP's network)
 On that screen, choose the "Digdar Marine Radar Scope" application.
 You'll see this (except that the network address is different than what you'll use):
 
-![initial digdar screen](https://github.com/jbrzusto/dar/blob/master/img/initial_screen.png)
+![initial digdar screen](https://github.com/jbrzusto/dar/blob/master/img/inital_screen.png)
 
 To get rid of the noisy and unhelpful video signal, click on **Video** to deselect that signal,
 and then click on **Autoscale** to rescale.  You'll then see the trigger, ACP and ARP signals like this:
 
-![trig_acp_arp_no_video] (https://github.com/jbrzusto/dar/blob/master/img/trig_acp_arp_no_video.png)
+![trig_acp_arp_no_video](https://github.com/jbrzusto/dar/blob/master/img/trig_acp_arp_no_video.png)
 
 To focus on calibrating one signal, deselct ARP and Trigger to see only ACP, then click on the
 **Range** button to let you adjust the time and voltage ranges.  Increase the time to see
 ACP pulses clearly.
 
-![adjust_range] (https://github.com/jbrzusto/dar/blob/master/img/adjust_range.png)
+![adjust_range](https://github.com/jbrzusto/dar/blob/master/img/adjust_range.png)
 
 To see a summary of how ACP, ARP and trigger are being captured, click on the **Measure** button
 to see a window like this:
 
-![show_signal_measurements] (https://github.com/jbrzusto/dar/blob/master/img/show_signal_measurements.png)
+![show_signal_measurements](https://github.com/jbrzusto/dar/blob/master/img/show_signal_measurements.png)
 
 The measurement for **Video** is not usually helpful, but under **Trigger**, the *Rate* should be
 the radar's PRF.  Do not worry about *Capturing*; it is showing only the rate at which pulses are
