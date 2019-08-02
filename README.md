@@ -134,11 +134,13 @@ Under **ARP / Hdg**, the *Rate* should be the radar rotation rate, typically aro
 
 If these signals are not being captured correctly, you need to adjust the trigger thresholds
 for individual signals.  This is done one signal at a time, by selecting that signal:
-  - set Capturing and Plot **When** to **At every pulse**
+  - set Capture and Plot **When** to **At every pulse**
   - set **Pulses From** to Trigger, ACP, or ARP
   - set the **Range** to a reasonable value
   - adjust the **Detect Pulse At** (excitation level) and **Relax At** (relaxation level) up or down
-    until you see an appropriate rate in the **Measure** window
+    until you see an appropriate rate in the **Measure** window.  The excitation level can be above
+    or below the relaxation level, depending on whether you want to capture the pulse on the rising
+    or falling edge (or on whether the signal is inverted).
 
 To watch raw (untriggered) signal, you can choose *Continuously* in the **When** menu.
 Then hit **Autoscale** to make the scale usable.  You should probably increase the **Range**
@@ -147,3 +149,65 @@ to be large as well.  It can go up to 5 seconds which is useful for checking the
 Once you are confident in your capture of these signals, you can save parameters to
 on-board digitizer storage, or download to a local file, via **Load/Store Parameters**.
 The factory defaults might or might not be useful for your radar.
+
+## The Linux host
+
+The linux host initiates capture on the redpitaya, and accepts digitized pulse
+data over an ethernet connection.  It records these pulses into files, one sweep
+per file.  Other scripts that run on the linux host transfer the files into
+local hard drives, generate jpg images and .pol files and send these by scp
+to the NAS server at FORCE HQ.
+
+The software that runs this is a combination of R and C++, available in this
+repository:  https://github.com/jbrzusto/capture
+
+It should build without issue on a Debian ubuntu box by doing these steps:
+
+```
+git clone https://github.com/jbrzusto/capture
+cd capture
+make
+```
+You'll need a version of R to run anything here.  The FORCE VC laptop
+has been using R 3.2.5 and I'd recommend starting with that.
+
+You'll need a linux package called `inotify-tools` on the linux box, which you can
+install by doing:
+
+```
+sudo apt-get install inotify-tools
+```
+
+This runs `inotifywait`, a program that watches a folder for addition of new files,
+reporting these on its output.  Several of the R scripts in the `capture` package
+watch folders using `inotifywait`.
+
+The main script for running capture is `scripts/runCapture.sh`.
+It calls `scripts/capture`, which launches all the individual subprograms.
+
+Also, the code in 'scripts/exporter.R' is run from a crontab.
+You can see that by doing:
+
+```bash
+$ crontab -l
+# m h  dom mon dow   command
+*/10 * *    *   *     /home/radar/bin/tunnel_to_jmb_pc.sh > /dev/null 2>&1
+*/6 * *    *   *     /home/radar/bin/tunnel_to_force_nas.sh > /dev/null 2>&1
+12,27,42,57 * *  *   *     /home/radar/capture/exporter.R >> /tmp/exporterlog.txt 2>&1
+```
+when logged into the VC laptop [see SSH section below].
+
+The two tunnel scripts are run to establish an outgoing ssh connection from the FORCE VC
+laptop.  One goes to my computer at my old office, the other to the FORCE NAS.
+If you are logged into the FORCE HQ server, you can login to the FORCE NAS like so:
+
+```
+ssh force@forcenas ## login to the FORCE NAS, from FORCE HQ
+```
+
+(I set it up using the file ~/.ssh/config for Joel and Jeremy on the FORCE HQ box).
+
+Once logged into the FORCE NAS, you can login to the FORCE VC laptop like so:
+```
+ssh radar@fvc  ## login to the FORCE VC radar laptop, from FORCE NAS
+```
