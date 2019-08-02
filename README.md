@@ -211,3 +211,11 @@ Once logged into the FORCE NAS, you can login to the FORCE VC laptop like so:
 ```
 ssh radar@fvc  ## login to the FORCE VC radar laptop, from FORCE NAS
 ```
+
+## Customizing radar capture parameters
+
+Much of this can be done by changing the constants at the top of the file `scripts/capture.sh`
+on the Linux host.  On the FORCE VC laptop, this file is in `/home/radar/capture/scripts/capture.sh`.
+In particular, this is where you need to set the network address of the redpitaya digitizer,
+and of the linux host so that the host can start the digitizer, and tell the latter
+where to send digitized pulses.
