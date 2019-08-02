@@ -102,4 +102,7 @@ RP via ethernet, and send your web browser to
 `http://redpitaya.local` or `http://10.42.0.56` (or something else, if you've
 reconfigured the RP's network)
 
-On that screen, choose the "digdar" application.
+On that screen, choose the "Digdar Marine Radar Scope" application.
+You'll see this:
+
+![initial digdar screen](http://github.com/jbrzusto/dar/img/
